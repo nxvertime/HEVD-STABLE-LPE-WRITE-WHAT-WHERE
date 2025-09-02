@@ -82,12 +82,12 @@ BYTE* GetExportPtrAndSize(BYTE* imageBase, const char* exportName, SIZE_T* secti
             DWORD funcRVA = funcs[ord];
             DWORD funcOff = RvaToOffset(funcRVA, nt, imageBase);
 
-            // Trouver la section qui contient ce RVA
+    
             auto sec = GetSectionForRVA(nt, funcRVA);
             if (!sec) return nullptr;
 
-            *sectionSize = sec->SizeOfRawData;      // Taille brute à scanner
-            return imageBase + funcOff;             // Pointeur dans l’image locale
+            *sectionSize = sec->SizeOfRawData;     
+            return imageBase + funcOff;             
         }
     }
     return nullptr;
@@ -114,7 +114,7 @@ BYTE* GetExportFromFile(BYTE* imageBase, const char* exportName) {
             WORD ord = ords[i];
             DWORD funcRVA = funcs[ord];
             DWORD funcOff = RvaToOffset(funcRVA, nt, imageBase);
-            return imageBase + funcOff;  // pointeur correct dans le buffer
+            return imageBase + funcOff;  
         }
     }
     return nullptr;
@@ -178,9 +178,9 @@ DWORD PatternScanner::ExtractOffset(BYTE* match, int offset) {
 }
 
 // usage (ntoskrnl example):
-// you need .text raw section of ntoskrnl (here stored in a "data" byte vector)
-// vector<BYTE> pattern = { 0x48, 0x8B, 0x81, 0x00, 0x00, 0x00, 0x00, 0xC3 };
-// string mask = "xxx????x";
+// you need .text raw section of ntoskrnl
+// const char* patternToken = "\x48\x8D\xB1\x00\x00\x00\x00";
+// const char* maskToken = "xxx????";
 // DWORD uniquePidOffset =  PatternScanner::FindOffset(data.data(), data.size(), pattern, mask);
 DWORD PatternScanner::FindOffset(BYTE* base, SIZE_T size, const char* pattern, const char* mask, int offset) {
     ULONG_PTR match = FindPatternWithMask(base, size, pattern, mask);
