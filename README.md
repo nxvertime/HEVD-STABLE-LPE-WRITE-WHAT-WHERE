@@ -40,7 +40,7 @@ This implementation is made stable across different **Windows 10 builds** by dyn
 - Run the exploit binary as low-privileged user
 
 - Enjoy your SYSTEM shell:
-![alt](https://i.imgur.com/JhTtJuW.png)
+- ![alt](https://i.imgur.com/JhTtJuW.png)
 ## 🧪 Tested On
 Microsoft Windows 10 (build 19044.1288)
 
